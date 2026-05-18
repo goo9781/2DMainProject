@@ -25,7 +25,6 @@ public class MGUIManager : MonoBehaviour
 
     private void Start()
     {
-        this.OpenLoadingUI();
     }
 
     public MGUIBase OpenUI(MGUIRootType uiRootType, MGUIType uiType, bool isInitialHide = false)
