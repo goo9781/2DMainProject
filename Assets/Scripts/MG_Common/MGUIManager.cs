@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MGUIManager : MonoBehaviour
 {
     [SerializeField] private Canvas Canvas_BgRoot;

@@ -20,6 +20,6 @@ public class MG_DeadZone : MonoBehaviour
 
         _isFailed = true;
 
-        MGGameManager.Inst.FailGame();
+        MGGameManager.Inst.GameOver();
     }
 }

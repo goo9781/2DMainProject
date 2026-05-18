@@ -1,5 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR;
+
+public enum MGGameState
+{
+    None = 0,
+    Main,
+    Playing,
+    Pause,
+    StageClear,
+    GameOver
+}
 
 public class MGGameManager : MonoBehaviour
 {
@@ -7,11 +18,17 @@ public class MGGameManager : MonoBehaviour
 
     private MGPlayerModel _playerModel = new MGPlayerModel();
 
-    private bool _isPlaying;
+    private MGGameState _currentState = MGGameState.None;
+    private MGGameState _prevState = MGGameState.None;
 
     public MGPlayerModel PlayerModel
     {
         get { return _playerModel; }
+    }
+
+    public MGGameState CurrentState
+    {
+        get { return _currentState; }
     }
 
     private void Awake()
@@ -28,50 +45,101 @@ public class MGGameManager : MonoBehaviour
 
     private void Start()
     {
-        StartGame();
+        ChangeState(MGGameState.Main);
     }
     
-    public void StartGame()
+    public void ChangeState(MGGameState state)
     {
-        _isPlaying = true;
-
-        Debug.Log("게임시작");
+        _prevState = _currentState;
+        _currentState = state;
     }
 
-    public void SuccessGame()
+    public void StartGame()
     {
-        if (_isPlaying == false)
+        ChangeState(MGGameState.Playing);
+
+        Time.timeScale = 1f;
+    }
+
+    public void PauseGame()
+    {
+        if (_currentState != MGGameState.Playing)
         {
             return;
         }
 
-        _isPlaying = false;
+        ChangeState(MGGameState.Pause);
+
+        Time.timeScale = 0f;
+
+        //일시정지 팝업 만들면 연결
+        //MGUIManager.Instance.OpenPausePopup();
+    }
+
+    public void ResumeGame()
+    {
+        if (_currentState != MGGameState.Pause)
+        {
+            return;
+        }
+
+        ChangeState(MGGameState.Playing);
+
+        Time.timeScale = 1f;
+
+        //일시정지 팝업 닫기에 연결
+        //MGUIManager.Instance.ClosePausePopup();
+    }
+
+    public void StageClearGame()
+    {
+        if (_currentState != MGGameState.Playing)
+        {
+            return;
+        }
+
+        ChangeState(MGGameState.StageClear);
 
         _playerModel.ClearStageCount++;
+
+        Time.timeScale = 0f;
 
         MGUIManager.Instance.OpenGameResultUI(true);
     }
 
-    public void FailGame()
+    public void GameOver()
     {
-        if (_isPlaying == false)
+        if (_currentState != MGGameState.Playing)
         {
             return;
         }
 
-        _isPlaying = false;
+        ChangeState(MGGameState.GameOver);
 
         _playerModel.DeathCount++;
+
+        Time.timeScale = 0f;
 
         MGUIManager.Instance.OpenGameResultUI(false);
     }
 
     public void RestartGame()
     {
+        Time.timeScale = 1f;
+
+        ChangeState(MGGameState.Playing);
+
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
+    }
 
-        StartGame();
+    public void GoMain()
+    {
+        Time.timeScale = 1f;
+
+        ChangeState(MGGameState.Main);
+
+        SceneManager.LoadScene("MainScene");
     }
 
     public void ExitGame()

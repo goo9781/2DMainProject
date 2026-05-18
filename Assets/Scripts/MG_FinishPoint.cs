@@ -13,6 +13,6 @@ public class MG_FinishPoint : MonoBehaviour
 
         Debug.Log("플레이어가 목적지에 도달했습니다.");
 
-        MGGameManager.Inst.SuccessGame();
+        MGGameManager.Inst.StageClearGame();
     }
 }
