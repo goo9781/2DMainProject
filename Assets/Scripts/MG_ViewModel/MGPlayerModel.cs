@@ -8,6 +8,6 @@ public class MGPlayerModel
     public int DeathCount;
     public int PlayerTotalScore;
 
-    public int MaxHP = 100;
+    public int MaxHp = 100;
     public int CurrentHp = 100;
 }
