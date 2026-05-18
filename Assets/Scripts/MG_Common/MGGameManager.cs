@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.XR;
 
 public enum MGGameState
 {
@@ -45,7 +44,10 @@ public class MGGameManager : MonoBehaviour
 
     private void Start()
     {
-        ChangeState(MGGameState.Main);
+        StartGame();
+
+        //메인 UI 추가후 변경
+        //ChangeState(MGGameState.Main);
     }
     
     public void ChangeState(MGGameState state)
