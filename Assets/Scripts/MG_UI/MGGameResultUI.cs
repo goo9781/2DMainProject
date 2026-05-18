@@ -46,15 +46,11 @@ public class MGGameResultUI : MGUIBase
 
     private void OnClickConfirm()
     {
-        Time.timeScale = 1f;
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        MGGameManager.Inst.RestartGame();
     }
 
     private void OnClickExit()
     {
-        Time.timeScale = 1f;
-
-        Application.Quit();
+        MGGameManager.Inst.ExitGame();
     }
 }
