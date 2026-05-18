@@ -114,6 +114,8 @@ public class MG_2DPlayer : MonoBehaviour
 
         playerModel.CurrentHp -= damage;
 
+        Debug.Log($"플레이어 피격 : {damage}, 현재 HP : {playerModel.CurrentHp}");
+
         if (playerModel.CurrentHp <= 0)
         {
             playerModel.CurrentHp = 0;
