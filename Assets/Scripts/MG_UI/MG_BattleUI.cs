@@ -16,6 +16,7 @@ public class MG_BattleUI : MGUIBase
         MGPlayerModel playerModel = MGGameManager.Inst.PlayerModel;
 
         float hpRatio = (float)playerModel.CurrentHp / playerModel.MaxHp;
+        hpRatio = Mathf.Clamp01(hpRatio);
 
         if (Image_HpBar != null)
         {

@@ -18,6 +18,7 @@ public class MG_2DPlayer : MonoBehaviour
 
     [Header("플레이어 상태")]
     [SerializeField] private int _dropItemCount;
+    [SerializeField] private MG_BattleUI BattleUI;
 
     private Rigidbody2D _rigidBody;
     private bool _isGrounded;
@@ -121,6 +122,11 @@ public class MG_2DPlayer : MonoBehaviour
             playerModel.CurrentHp = 0;
 
             Death();
+        }
+
+        if (BattleUI != null)
+        {
+            BattleUI.RefreshHp();
         }
     }
 
