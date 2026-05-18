@@ -1,0 +1,32 @@
+[
+  {
+    "Id": "dialogue_mainstream_1_1_100",
+    "CharacterDataId": null,
+    "Description": "당신이 가진 것은 오직 방패뿐...",
+    "NextDialogueId": "dialogue_mainstream_1_1_200",
+    "SelectionNameList": null,
+    "SelectionDialogueIdList": null,
+    "TexturePath": "Texture2D/Texture2D_Loading_1",
+    "VoicePath": null
+  },
+  {
+    "Id": "dialogue_mainstream_1_1_200",
+    "CharacterDataId": null,
+    "Description": "무자비한 적들의 공격을 타이밍에 맞춰 방어하세요!",
+    "NextDialogueId": "dialogue_mainstream_1_1_300",
+    "SelectionNameList": null,
+    "SelectionDialogueIdList": null,
+    "TexturePath": "Texture2D/Texture2D_Loading_1",
+    "VoicePath": null
+  },
+  {
+    "Id": "dialogue_mainstream_1_1_300",
+    "CharacterDataId": null,
+    "Description": "적들의 공격을 막으며 안전한 곳을 찾아 앞으로 나아가세요!",
+    "NextDialogueId": null,
+    "SelectionNameList": null,
+    "SelectionDialogueIdList": null,
+    "TexturePath": "Texture2D/Texture2D_Loading_1",
+    "VoicePath": null
+  }
+]
