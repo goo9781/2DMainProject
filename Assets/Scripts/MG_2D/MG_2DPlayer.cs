@@ -24,6 +24,7 @@ public class MG_2DPlayer : MonoBehaviour
     private bool _isGrounded;
     private float _horizontalInput;
     private bool _lookRight = true;
+    private bool _isDead;
 
     void Awake()
     {
@@ -34,6 +35,11 @@ public class MG_2DPlayer : MonoBehaviour
 
     void Update()
     {
+        if(_isDead)
+        {
+            return;
+        }        
+
         _horizontalInput = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetButtonDown("Jump") && _isGrounded)
@@ -56,6 +62,12 @@ public class MG_2DPlayer : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(_isDead)
+        {
+            _rigidBody.linearVelocity = Vector2.zero;
+            return;
+        }
+
         _isGrounded = Physics2D.OverlapCircle(_groundCheck.position, _checkRadius, _groundLayer);
 
         Move();
@@ -111,27 +123,38 @@ public class MG_2DPlayer : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (_isDead)
+        {
+            return;
+        }
+
         MGPlayerModel playerModel = MGGameManager.Inst.PlayerModel;
 
         playerModel.CurrentHp -= damage;
 
-        Debug.Log($"플레이어 피격 : {damage}, 현재 HP : {playerModel.CurrentHp}");
-
         if (playerModel.CurrentHp <= 0)
         {
             playerModel.CurrentHp = 0;
-
-            Death();
         }
 
         if (BattleUI != null)
         {
             BattleUI.RefreshHp();
         }
+
+        if (playerModel.CurrentHp <= 0)
+        {
+            Death();
+        }
+
     }
 
     private void Death()
     {
+        _isDead = true;
+
+        _rigidBody.linearVelocity = Vector2.zero;
+
         MGGameManager.Inst.GameOver();
     }
 }
