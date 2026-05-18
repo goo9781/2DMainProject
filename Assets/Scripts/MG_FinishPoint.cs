@@ -13,6 +13,6 @@ public class MG_FinishPoint : MonoBehaviour
 
         Debug.Log("플레이어가 목적지에 도달했습니다.");
 
-        MGUIManager.Instance.OpenGameResultUI(true);
+        MGGameManager.Inst.SuccessGame();
     }
 }
