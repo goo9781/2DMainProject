@@ -107,4 +107,23 @@ public class MG_2DPlayer : MonoBehaviour
 
         Debug.Log($"플레이어 상태 변경 - 드랍 아이템 개수: {_dropItemCount}");
     }
+
+    public void TakeDamage(int damage)
+    {
+        MGPlayerModel playerModel = MGGameManager.Inst.PlayerModel;
+
+        playerModel.CurrentHp -= damage;
+
+        if (playerModel.CurrentHp <= 0)
+        {
+            playerModel.CurrentHp = 0;
+
+            Death();
+        }
+    }
+
+    private void Death()
+    {
+        MGGameManager.Inst.GameOver();
+    }
 }
