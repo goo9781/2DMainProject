@@ -131,8 +131,20 @@ public class MGGameManager : MonoBehaviour
 
         ChangeState(MGGameState.Playing);
 
+        ResetPlayerForRestart();
+
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
+    }
+
+    public void ResetPlayerForRestart()
+    {
+        if (_playerModel == null)
+        {
+            return;
+        }
+
+        _playerModel.CurrentHp = _playerModel.MaxHp;
     }
 
     public void GoMain()
