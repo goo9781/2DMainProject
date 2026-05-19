@@ -6,11 +6,32 @@ public class MG_Monster : MonoBehaviour
     [SerializeField] private int _maxHp = 30;
     [SerializeField] private int _currentHp;
 
+    [Header("애니메이터")]
+    [SerializeField] private Animator Animator_Monster;
+
     private bool _isDead;
 
     private void Awake()
     {
         _currentHp = _maxHp;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SetMove(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetMove(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            PlayAttack();
+        }
     }
 
     public void TakeDamage(int damage)
@@ -35,8 +56,39 @@ public class MG_Monster : MonoBehaviour
         }
     }
 
+    public void SetMove(bool isMove)
+    {
+        if (_isDead)
+        {
+            return;
+        }
+
+        if (Animator_Monster !=null)
+        {
+            Animator_Monster.SetBool("IsMove", isMove);
+        }
+    }
+
+    public void PlayAttack()
+    {
+        if (_isDead)
+        {
+            return;
+        }
+
+        if (Animator_Monster != null)
+        {
+            Animator_Monster.SetTrigger("Attack");
+        }
+    }
+
     public void Death()
     {
+        if (_isDead)
+        {
+            return;
+        }
+        
         _isDead = true;
         
         Destroy(gameObject);

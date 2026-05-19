@@ -109,6 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MG_Monster
   _maxHp: 30
   _currentHp: 0
+  Animator_Monster: {fileID: 924107212888559116}
 --- !u!70 &2921584214612762938
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
