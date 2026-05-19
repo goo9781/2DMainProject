@@ -110,6 +110,9 @@ MonoBehaviour:
   _maxHp: 30
   _currentHp: 0
   Animator_Monster: {fileID: 924107212888559116}
+  _detectRange: 3
+  _attackRange: 1
+  _attackCoolTime: 1.5
 --- !u!70 &2921584214612762938
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -120,7 +123,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 4eaf1c16f2f71f942b1a35a67afb37ff, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -157,9 +160,9 @@ Rigidbody2D:
   m_GameObject: {fileID: 6649763501422610752}
   m_BodyType: 0
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -173,7 +176,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &924107212888559116
 Animator:
   serializedVersion: 7
