@@ -14,6 +14,7 @@ public class MG_Monster : MonoBehaviour
     [SerializeField] private float _moveSpeed = 2f;
 
     [Header("공격 설정")]
+    [SerializeField] private int _attackDamage = 10;
     [SerializeField] private float _detectRange = 3f;
     [SerializeField] private float _attackRange = 1f;
     [SerializeField] private float _attackCoolTime = 1.5f;
@@ -200,8 +201,6 @@ public class MG_Monster : MonoBehaviour
 
     private void TryAttack()
     {
-        _attackTimer -= Time.deltaTime;
-
         if (_attackTimer > 0f)
         {
             return;
@@ -210,6 +209,31 @@ public class MG_Monster : MonoBehaviour
         _attackTimer = _attackCoolTime;
 
         PlayAttack();
+        AttackPlayer();
+    }
+
+    private void AttackPlayer()
+    {
+        if (_player == null)
+        {
+            return;
+        }
+
+        MG_2DPlayer player = _player.GetComponent<MG_2DPlayer>();
+
+        if (player == null)
+        {
+            return;
+        }
+
+        float distance = Vector2.Distance(transform.position, _player.position);
+
+        if (distance > _attackRange)
+        {
+            return;
+        }
+
+        player.TakeDamage(_attackDamage);
     }
 
     private void LookAtMoveDirection()
