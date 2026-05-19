@@ -9,6 +9,14 @@ public class MG_Monster : MonoBehaviour
     [Header("애니메이터")]
     [SerializeField] private Animator Animator_Monster;
 
+    [Header("공격 설정")]
+    [SerializeField] private float _detectRange = 3f;
+    [SerializeField] private float _attackRange = 1f;
+    [SerializeField] private float _attackCoolTime = 1.5f;
+
+    private Transform _player;
+    private float _attackTimer;
+
     private bool _isDead;
 
     private void Awake()
@@ -18,20 +26,37 @@ public class MG_Monster : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (_isDead)
         {
-            SetMove(false);
+            return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        FindPlayer();
+
+        if (_player == null)
+        {
+            SetMove(false);
+            return;
+        }
+
+        float distance = Vector2.Distance(transform.position, _player.position);
+
+        if (distance <= _attackRange)
+        {
+            SetMove(false);
+            TryAttack();
+        }
+
+        else if (distance <= _detectRange)
         {
             SetMove(true);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        else
         {
-            PlayAttack();
+            SetMove(false);
         }
+
     }
 
     public void TakeDamage(int damage)
@@ -92,5 +117,37 @@ public class MG_Monster : MonoBehaviour
         _isDead = true;
         
         Destroy(gameObject);
+    }
+
+    private void FindPlayer()
+    {
+        if (_player != null)
+        {
+            return;
+        }
+
+        MG_2DPlayer player = FindFirstObjectByType<MG_2DPlayer>();
+
+        if (player == null)
+        {
+            return;
+        }
+
+        _player = player.transform;
+   
+    }
+
+    private void TryAttack()
+    {
+        _attackTimer -= Time.deltaTime;
+
+        if (_attackTimer > 0f)
+        {
+            return;
+        }
+
+        _attackTimer = _attackCoolTime;
+
+        PlayAttack();
     }
 }
