@@ -20,11 +20,18 @@ public class MG_2DPlayer : MonoBehaviour
     [SerializeField] private int _dropItemCount;
     [SerializeField] private MG_BattleUI BattleUI;
 
+    [Header("피격 설정")]
+    [SerializeField] private SpriteRenderer SpriteRenderer_Player;
+    [SerializeField] private float _invincibleTime = 1f;
+    [SerializeField] private float _knockBackPowerX = 5f;
+    [SerializeField] private float _knockBackPowerY = 3f;
+
     private Rigidbody2D _rigidBody;
     private bool _isGrounded;
     private float _horizontalInput;
     private bool _lookRight = true;
     private bool _isDead;
+    private bool _isInvincible;
 
     void Awake()
     {
@@ -123,7 +130,16 @@ public class MG_2DPlayer : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        TakeDamage(damage, transform.position);
+    }
+    public void TakeDamage(int damage, Vector2 attackerPosition)
+    {
         if (_isDead)
+        {
+            return;
+        }
+
+        if (_isInvincible)
         {
             return;
         }
@@ -137,6 +153,8 @@ public class MG_2DPlayer : MonoBehaviour
             playerModel.CurrentHp = 0;
         }
 
+        OnDamaged(attackerPosition);
+
         if (BattleUI != null)
         {
             BattleUI.RefreshHp();
@@ -147,6 +165,37 @@ public class MG_2DPlayer : MonoBehaviour
             Death();
         }
 
+    }
+
+    private void OnDamaged(Vector2 attackerPosition)
+    {
+        _isInvincible = true;
+
+        if (SpriteRenderer_Player != null)
+        {
+            SpriteRenderer_Player.color = new Color(1f, 1f, 1f, 0.4f);
+        }
+
+        float directionX = transform.position.x - attackerPosition.x > 0f ? 1f : -1f;
+
+        if (_rigidBody != null)
+        {
+            _rigidBody.linearVelocity = Vector2.zero;
+            _rigidBody.AddForce(new Vector2(directionX * _knockBackPowerX, _knockBackPowerY), ForceMode2D.Impulse);
+        }
+
+        CancelInvoke(nameof(OffDamaged));
+        Invoke(nameof(OffDamaged), _invincibleTime);
+    }
+
+    private void OffDamaged()
+    {
+        _isInvincible = false;
+
+        if (SpriteRenderer_Player != null)
+        {
+            SpriteRenderer_Player.color = new Color(1f, 1f, 1f, 1f);
+        }
     }
 
     private void Death()

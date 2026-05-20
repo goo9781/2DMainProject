@@ -233,7 +233,7 @@ public class MG_Monster : MonoBehaviour
             return;
         }
 
-        player.TakeDamage(_attackDamage);
+        player.TakeDamage(_attackDamage, transform.position);
     }
 
     private void LookAtMoveDirection()

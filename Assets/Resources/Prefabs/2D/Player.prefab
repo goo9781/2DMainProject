@@ -338,6 +338,10 @@ MonoBehaviour:
   Animator_Entity: {fileID: 3285258916171480943}
   _dropItemCount: 0
   BattleUI: {fileID: 0}
+  SpriteRenderer_Player: {fileID: 8229586965250705593}
+  _invincibleTime: 1
+  _knockBackPowerX: 5
+  _knockBackPowerY: 3
 --- !u!70 &7051000365550757189
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
