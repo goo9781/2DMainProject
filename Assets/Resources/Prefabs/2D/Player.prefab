@@ -343,6 +343,8 @@ MonoBehaviour:
   _knockBackPowerX: 5
   _knockBackPowerY: 5
   _knockBackStopTime: 0.4
+  _attackKey: 106
+  _attackCoolTime: 0.5
 --- !u!70 &7051000365550757189
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -392,12 +394,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f225c298ccad74cbe85f56cecdee5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MG_2DPlayerAttack
+  Animator_Entity: {fileID: 3285258916171480943}
   _attackPoint: {fileID: 1893022478715434267}
   _attackRadius: 0.7
   _attackDamage: 10
   _monsterLayer:
     serializedVersion: 2
     m_Bits: 128
+  _attackKey: 106
+  _attackCoolTime: 0.5
 --- !u!1 &9038293021600348498
 GameObject:
   m_ObjectHideFlags: 0
