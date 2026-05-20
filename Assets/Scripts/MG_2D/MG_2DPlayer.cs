@@ -27,14 +27,9 @@ public class MG_2DPlayer : MonoBehaviour
     [SerializeField] private float _knockBackPowerY = 3f;
     [SerializeField] private float _knockBackStopTime = 0.2f;
 
-    [Header("공격 설정")]
-    [SerializeField] private KeyCode _attackKey = KeyCode.J;
-    [SerializeField] private float _attackCoolTime = 0.5f;
-
     private Rigidbody2D _rigidBody;
     private bool _isGrounded;
     private float _horizontalInput;
-    private float _attackTimer;
     private bool _lookRight = true;
     private bool _isDead;
     private bool _isInvincible;
@@ -54,21 +49,11 @@ public class MG_2DPlayer : MonoBehaviour
             return;
         }        
 
-        if (_attackTimer > 0f)
-        {
-            _attackTimer -= Time.deltaTime;
-        }
-
         _horizontalInput = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
             Jump();
-        }
-
-        if (Input.GetKeyDown(_attackKey))
-        {
-            Attack();
         }
 
         if (_horizontalInput > 0 && !_lookRight)
@@ -110,28 +95,6 @@ public class MG_2DPlayer : MonoBehaviour
     void Jump()
     {
         _rigidBody.linearVelocity = new Vector2(_rigidBody.linearVelocity.x, _jumpForce);
-    }
-
-    private void Attack()
-    {
-        if (_attackTimer > 0f)
-        {
-            return;
-        }
-
-        _attackTimer = _attackCoolTime;
-
-        PlayAttackAnimation();
-    }
-
-    private void PlayAttackAnimation()
-    {
-        if (Animator_Entity == null)
-        {
-            return;
-        }
-
-        Animator_Entity.SetTrigger("Attack");
     }
 
     void Flip()
