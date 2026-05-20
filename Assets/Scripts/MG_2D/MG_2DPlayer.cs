@@ -25,6 +25,7 @@ public class MG_2DPlayer : MonoBehaviour
     [SerializeField] private float _invincibleTime = 1f;
     [SerializeField] private float _knockBackPowerX = 5f;
     [SerializeField] private float _knockBackPowerY = 3f;
+    [SerializeField] private float _knockBackStopTime = 0.2f;
 
     private Rigidbody2D _rigidBody;
     private bool _isGrounded;
@@ -32,6 +33,7 @@ public class MG_2DPlayer : MonoBehaviour
     private bool _lookRight = true;
     private bool _isDead;
     private bool _isInvincible;
+    private bool _isDamaged;
 
     void Awake()
     {
@@ -82,6 +84,11 @@ public class MG_2DPlayer : MonoBehaviour
 
     void Move()
     {
+        if (_isDamaged)
+        {
+            return;
+        }
+        
         _rigidBody.linearVelocity = new Vector2(_horizontalInput * _moveSpeed, _rigidBody.linearVelocity.y);
     }
 
@@ -170,6 +177,7 @@ public class MG_2DPlayer : MonoBehaviour
     private void OnDamaged(Vector2 attackerPosition)
     {
         _isInvincible = true;
+        _isDamaged = true;
 
         if (SpriteRenderer_Player != null)
         {
@@ -184,8 +192,21 @@ public class MG_2DPlayer : MonoBehaviour
             _rigidBody.AddForce(new Vector2(directionX * _knockBackPowerX, _knockBackPowerY), ForceMode2D.Impulse);
         }
 
+        CancelInvoke(nameof(StopKnockBack));
         CancelInvoke(nameof(OffDamaged));
+
+        Invoke(nameof(StopKnockBack), _knockBackStopTime);
         Invoke(nameof(OffDamaged), _invincibleTime);
+    }
+    
+    private void StopKnockBack()
+    {
+        _isDamaged = false;
+
+        if (_rigidBody != null)
+        {
+            _rigidBody.linearVelocity = new Vector2(0f, _rigidBody.linearVelocity.y);
+        }
     }
 
     private void OffDamaged()
