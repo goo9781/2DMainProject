@@ -19,6 +19,10 @@ public class MG_Monster : MonoBehaviour
     [SerializeField] private float _attackRange = 1f;
     [SerializeField] private float _attackCoolTime = 1.5f;
 
+    [Header("피격 설정")]
+    [SerializeField] private SpriteRenderer SpriteRenderer_Monster;
+    [SerializeField] private float _hitFlashTime = 0.1f;
+
     private Rigidbody2D _rigidBody;
     private Transform _player;
     private float _attackTimer;
@@ -101,12 +105,37 @@ public class MG_Monster : MonoBehaviour
             _currentHp = 0;
         }
 
+        PlayHitFlash();
+
         Debug.Log($"몬스터 피격 : {damage}. 현재 HP : {_currentHp}");
 
         if (_currentHp <= 0)
         {
             Death();
         }
+    }
+
+    private void PlayHitFlash()
+    {
+        if (SpriteRenderer_Monster == null)
+        {
+            return;
+        }
+
+        SpriteRenderer_Monster.color = new Color(1f, 1f, 1f, 0.4f);
+
+        CancelInvoke(nameof(OffHitFlash));
+        Invoke(nameof(OffHitFlash), _hitFlashTime);
+    }
+
+    private void OffHitFlash()
+    {
+        if (SpriteRenderer_Monster == null)
+        {
+            return;
+        }
+
+        SpriteRenderer_Monster.color = new Color(1f, 1f, 1f, 1f);
     }
 
     public void SetMove(bool isMove)
