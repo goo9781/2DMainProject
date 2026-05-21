@@ -23,6 +23,10 @@ public class MG_Monster : MonoBehaviour
     [SerializeField] private SpriteRenderer SpriteRenderer_Monster;
     [SerializeField] private float _hitFlashTime = 0.1f;
 
+    [Header("피격 넉백 설정")]
+    [SerializeField] private float _hitKnockBackPowerX = 3f;
+    [SerializeField] private float _hitKnockBackStopTime = 0.15f;
+
     private Rigidbody2D _rigidBody;
     private Transform _player;
     private float _attackTimer;
@@ -93,6 +97,12 @@ public class MG_Monster : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        TakeDamage(damage, transform.position);
+    }
+
+
+    public void TakeDamage(int damage, Vector2 attackerPosition)
+    {
         if (_isDead)
         {
             return;
@@ -106,6 +116,7 @@ public class MG_Monster : MonoBehaviour
         }
 
         PlayHitFlash();
+        PlayHitKnockBack(attackerPosition);
 
         Debug.Log($"몬스터 피격 : {damage}. 현재 HP : {_currentHp}");
 
@@ -136,6 +147,30 @@ public class MG_Monster : MonoBehaviour
         }
 
         SpriteRenderer_Monster.color = new Color(1f, 1f, 1f, 1f);
+    }
+
+    private void PlayHitKnockBack(Vector2 attackerPosition)
+    {
+        float directionX = transform.position.x - attackerPosition.x > 0f ? 1f : -1f;
+
+        if (_rigidBody != null)
+        {
+            _rigidBody.linearVelocity = new Vector2(0f, _rigidBody.linearVelocity.y);
+            _rigidBody.AddForce(new Vector2(directionX * _hitKnockBackPowerX, 0f), ForceMode2D.Impulse);
+        }
+
+        CancelInvoke(nameof(StopHitKnockBack));
+        Invoke(nameof(StopHitKnockBack), _hitKnockBackStopTime);
+    }
+
+    private void StopHitKnockBack()
+    {
+        if (_rigidBody == null)
+        {
+            return;
+        }
+
+        _rigidBody.linearVelocity = new Vector2(0f, _rigidBody.linearVelocity.y);
     }
 
     public void SetMove(bool isMove)

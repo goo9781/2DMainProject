@@ -59,7 +59,7 @@ public class MG_2DPlayerAttack : MonoBehaviour
 
         Debug.Log("플레이어 공격 성공");
 
-        monster.TakeDamage(_attackDamage);
+        monster.TakeDamage(_attackDamage, transform.position);
     }
 
     private void PlayAttackAnimation()

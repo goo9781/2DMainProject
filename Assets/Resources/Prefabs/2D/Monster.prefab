@@ -117,6 +117,8 @@ MonoBehaviour:
   _attackCoolTime: 1.5
   SpriteRenderer_Monster: {fileID: 5990905560723621616}
   _hitFlashTime: 0.5
+  _hitKnockBackPowerX: 50
+  _hitKnockBackStopTime: 0.15
 --- !u!70 &2921584214612762938
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -166,7 +168,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1000
+  m_Mass: 50
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
