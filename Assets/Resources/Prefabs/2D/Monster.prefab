@@ -117,7 +117,7 @@ MonoBehaviour:
   _attackCoolTime: 1.5
   SpriteRenderer_Monster: {fileID: 5990905560723621616}
   _hitFlashTime: 0.5
-  _hitKnockBackPowerX: 50
+  _hitKnockBackPowerX: 100
   _hitKnockBackStopTime: 0.15
 --- !u!70 &2921584214612762938
 CapsuleCollider2D:

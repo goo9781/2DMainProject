@@ -34,6 +34,7 @@ public class MG_Monster : MonoBehaviour
     private Vector3 _originScale;
 
     private bool _isDead;
+    private bool _isDamaged;
 
     private void Awake()
     {
@@ -48,6 +49,11 @@ public class MG_Monster : MonoBehaviour
     private void Update()
     {
         if (_isDead)
+        {
+            return;
+        }
+
+        if (_isDamaged)
         {
             return;
         }
@@ -151,6 +157,10 @@ public class MG_Monster : MonoBehaviour
 
     private void PlayHitKnockBack(Vector2 attackerPosition)
     {
+        _isDamaged = true;
+        _moveDirectionX = 0f;
+        SetMove(false);
+
         float directionX = transform.position.x - attackerPosition.x > 0f ? 1f : -1f;
 
         if (_rigidBody != null)
@@ -165,6 +175,8 @@ public class MG_Monster : MonoBehaviour
 
     private void StopHitKnockBack()
     {
+        _isDamaged = false;
+        
         if (_rigidBody == null)
         {
             return;
@@ -231,6 +243,11 @@ public class MG_Monster : MonoBehaviour
 
     private void ChasePlayer()
     {
+       if (_isDamaged)
+        {
+            return;
+        }
+        
         float directionX = _player.position.x - transform.position.x;
 
         if (directionX > 0f)
@@ -260,6 +277,11 @@ public class MG_Monster : MonoBehaviour
 
     private void Move()
     {
+        if(_isDamaged)
+        {
+            return; 
+        }
+        
         _rigidBody.linearVelocity = new Vector2(_moveDirectionX * _moveSpeed, _rigidBody.linearVelocity.y);
     }
 
