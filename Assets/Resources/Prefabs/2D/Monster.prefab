@@ -112,7 +112,7 @@ MonoBehaviour:
   Animator_Monster: {fileID: 924107212888559116}
   _moveSpeed: 2
   _attackDamage: 10
-  _detectRange: 3
+  _detectRange: 5
   _attackRange: 1
   _attackCoolTime: 1.5
   SpriteRenderer_Monster: {fileID: 5990905560723621616}
