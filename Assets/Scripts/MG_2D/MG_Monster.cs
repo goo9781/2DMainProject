@@ -32,9 +32,11 @@ public class MG_Monster : MonoBehaviour
     private float _attackTimer;
     private float _moveDirectionX;
     private Vector3 _originScale;
+    private int _instanceId;
 
     private bool _isDead;
     private bool _isDamaged;
+    private bool _isRegisteredObject;
 
     private void Awake()
     {
@@ -220,6 +222,12 @@ public class MG_Monster : MonoBehaviour
         
         _isDead = true;
         
+        if (_isRegisteredObject && MGGameObjectManager.Inst != null)
+        {
+            MGGameObjectManager.Inst.RequestDestroyGameObject(_instanceId);
+            return;
+        }
+
         Destroy(gameObject);
     }
 
@@ -333,6 +341,12 @@ public class MG_Monster : MonoBehaviour
         {
             transform.localScale = new Vector3(-Mathf.Abs(_originScale.x), _originScale.y, _originScale.z);
         }
+    }
+
+    public void InitMonsterInfo(int instanceId)
+    {
+        _instanceId = instanceId;
+        _isRegisteredObject = true;
     }
 
     private void OnDrawGizmosSelected()
