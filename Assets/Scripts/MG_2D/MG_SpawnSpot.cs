@@ -79,6 +79,10 @@ public class MG_SpawnSpot : MonoBehaviour
                 this.gameObject.SetActive(false);
                 break;
 
+            case MGSpawnSpotType.Monster:
+                SpawnMonster();
+                this.gameObject.SetActive(false);
+                break;
 
 
         }
@@ -101,5 +105,23 @@ public class MG_SpawnSpot : MonoBehaviour
 
         GameObject spawnObject = Instantiate(Prefab_SpawnObject, spawnPosition, Quaternion.identity);
 
+    }
+
+    private void SpawnMonster()
+    {
+        if (MGGameObjectManager.Inst == null)
+        {
+            Debug.LogWarning("MGGameObjectManager가 없습니다.");
+            return;
+        }
+
+        Vector3 spawnPosition = transform.position;
+
+        if (Transform_SpawnPosition != null)
+        {
+            spawnPosition = Transform_SpawnPosition.position;
+        }
+
+        MGGameObjectManager.Inst.RequestSpawnMonster(spawnPosition);
     }
 }
