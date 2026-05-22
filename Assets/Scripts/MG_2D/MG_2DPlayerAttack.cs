@@ -61,7 +61,7 @@ public class MG_2DPlayerAttack : MonoBehaviour
         Gizmos.DrawWireSphere(_attackPoint.position, _attackRadius);
     }
 
-    public void AnimationEvent_AttackHit()
+    public void AnimationEvent_PlayerAttackHit()
     {
         Collider2D hitCollider = Physics2D.OverlapCircle(
             _attackPoint.position,
