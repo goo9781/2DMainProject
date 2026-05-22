@@ -38,28 +38,6 @@ public class MG_2DPlayerAttack : MonoBehaviour
         _attackTimer = _attackCoolTime;
 
         PlayAttackAnimation();
-
-        Collider2D hitCollider = Physics2D.OverlapCircle(
-            _attackPoint.position,
-            _attackRadius,
-            _monsterLayer
-        );
-
-        if (hitCollider == null)
-        {
-            return;
-        }
-
-        MG_Monster monster = hitCollider.GetComponent<MG_Monster>();
-
-        if (monster == null)
-        {
-            return;
-        }
-
-        Debug.Log("플레이어 공격 성공");
-
-        monster.TakeDamage(_attackDamage, transform.position);
     }
 
     private void PlayAttackAnimation()
@@ -81,6 +59,31 @@ public class MG_2DPlayerAttack : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(_attackPoint.position, _attackRadius);
+    }
+
+    public void AnimationEvent_AttackHit()
+    {
+        Collider2D hitCollider = Physics2D.OverlapCircle(
+            _attackPoint.position,
+            _attackRadius,
+            _monsterLayer
+            );
+
+        if (hitCollider == null)
+        {
+            return;
+        }
+
+        MG_Monster monster = hitCollider.GetComponent<MG_Monster>();
+
+        if (monster == null)
+        {
+            return;
+        }
+
+        Debug.Log("플레이어 공격 성공");
+
+        monster.TakeDamage(_attackDamage, transform.position);
     }
 }
 
