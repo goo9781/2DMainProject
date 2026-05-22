@@ -5,9 +5,11 @@ public class MG_BattleUI : MGUIBase
 {
     [SerializeField] private Image Image_HpBar;
     [SerializeField] private Text Text_Hp;
+    [SerializeField] private Text Text_Objective;
 
     private void Start()
     {
+        SetObjectiveText("목적지까지 도달하세요!");
         RefreshHp();
     }
 
@@ -27,5 +29,15 @@ public class MG_BattleUI : MGUIBase
         {
             Text_Hp.text = $"HP : {playerModel.CurrentHp} / {playerModel.MaxHp}";
         }
+    }
+
+    public void SetObjectiveText(string objectiveText)
+    {
+        if (Text_Objective == null)
+        {
+            return;
+        }
+
+        Text_Objective.text = objectiveText;
     }
 }

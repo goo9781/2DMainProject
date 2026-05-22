@@ -299,25 +299,15 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
-  - first: {x: 3, y: -1, z: 0}
-    second:
-      serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_TileObjectToInstantiateIndex: 65535
-      dummyAlignment: 0
-      m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 9
+  - m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 3881ab2a155877b40986e43b0b868d90, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 9
+  - m_RefCount: 8
     m_Data: {fileID: 7145198348311737387, guid: f73dfe034c22cfc41bd7e8799020a5ac, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 9
+  - m_RefCount: 8
     m_Data:
       e00: 1
       e01: 0
@@ -336,7 +326,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 9
+  - m_RefCount: 8
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -6445,11 +6435,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8998890994898099209, guid: d62cdfd80e80beb47b78a93ca422910e, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -1010
+      value: -0.00012207
       objectReference: {fileID: 0}
     - target: {fileID: 8998890994898099209, guid: d62cdfd80e80beb47b78a93ca422910e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -624.3768
+      value: 0.00012207
       objectReference: {fileID: 0}
     - target: {fileID: 8998890994898099209, guid: d62cdfd80e80beb47b78a93ca422910e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6481,11 +6471,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8998890994898099209, guid: d62cdfd80e80beb47b78a93ca422910e, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -504.99994
+      value: 0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 8998890994898099209, guid: d62cdfd80e80beb47b78a93ca422910e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 312.18842
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8998890994898099209, guid: d62cdfd80e80beb47b78a93ca422910e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
