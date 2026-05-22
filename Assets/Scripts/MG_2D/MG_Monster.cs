@@ -322,7 +322,6 @@ public class MG_Monster : MonoBehaviour
         _attackTimer = _attackCoolTime;
 
         PlayAttack();
-        AttackPlayer();
     }
 
     private void AttackPlayer()
@@ -347,6 +346,11 @@ public class MG_Monster : MonoBehaviour
         }
 
         player.TakeDamage(_attackDamage, transform.position);
+    }
+
+    public void AnimationEvent_MonsterAttackHit()
+    {
+        AttackPlayer();
     }
 
     private void LookAtMoveDirection()
