@@ -27,11 +27,21 @@ public class MG_Monster : MonoBehaviour
     [SerializeField] private float _hitKnockBackPowerX = 3f;
     [SerializeField] private float _hitKnockBackStopTime = 0.15f;
 
+    [Header("순찰 설정")]
+    [SerializeField] private float _patrolRange = 2f;
+    [SerializeField] private float _patrolSpeed = 1.5f;
+
     private Rigidbody2D _rigidBody;
     private Transform _player;
+
     private float _attackTimer;
     private float _moveDirectionX;
+    private float _patrolDirectionX = 1f;
+    private float _currentMoveSpeed;
+
     private Vector3 _originScale;
+    private Vector3 _patrolCenterPosition;
+
     private int _instanceId;
 
     private bool _isDead;
@@ -46,6 +56,12 @@ public class MG_Monster : MonoBehaviour
         _originScale = transform.localScale;
         
         _currentHp = _maxHp;
+    }
+
+    private void Start()
+    {
+        _patrolCenterPosition = transform.position;
+        _currentMoveSpeed = _patrolSpeed;
     }
 
     private void Update()
@@ -69,7 +85,7 @@ public class MG_Monster : MonoBehaviour
 
         if (_player == null)
         {
-            StopMove();
+            Patrol();
             return;
         }
 
@@ -88,7 +104,7 @@ public class MG_Monster : MonoBehaviour
 
         else
         {
-            StopMove();
+            Patrol();
         }
 
     }
@@ -273,6 +289,8 @@ public class MG_Monster : MonoBehaviour
             _moveDirectionX = 0f;
         }
 
+        _currentMoveSpeed = _moveSpeed;
+
         SetMove(true);
         LookAtMoveDirection();
     }
@@ -280,6 +298,7 @@ public class MG_Monster : MonoBehaviour
     private void StopMove()
     {
         _moveDirectionX = 0f;
+        _currentMoveSpeed = 0f;
         SetMove(false);
     }
 
@@ -290,7 +309,7 @@ public class MG_Monster : MonoBehaviour
             return; 
         }
         
-        _rigidBody.linearVelocity = new Vector2(_moveDirectionX * _moveSpeed, _rigidBody.linearVelocity.y);
+        _rigidBody.linearVelocity = new Vector2(_moveDirectionX * _currentMoveSpeed, _rigidBody.linearVelocity.y);
     }
 
     private void TryAttack()
@@ -343,12 +362,40 @@ public class MG_Monster : MonoBehaviour
         }
     }
 
+    private void Patrol()
+    {
+        if (_patrolRange <= 0f)
+        {
+            StopMove();
+            return;
+        }
+
+        float leftLimit = _patrolCenterPosition.x - _patrolRange;
+        float rightLimit = _patrolCenterPosition.x + _patrolRange;
+
+        if (transform.position.x <= leftLimit)
+        {
+            _patrolDirectionX = 1f;
+        }
+        else if (transform.position.x >= rightLimit)
+        {
+            _patrolDirectionX = -1f;
+        }
+
+        _moveDirectionX = _patrolDirectionX;
+        _currentMoveSpeed = _patrolSpeed;
+
+        SetMove(true);
+        LookAtMoveDirection();
+    }
+
     public void InitMonsterInfo(int instanceId)
     {
         _instanceId = instanceId;
         _isRegisteredObject = true;
     }
 
+    //몬스터의 판정 범위 시각화(플레이어 추격, 공격, 순찰 범위)
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -356,5 +403,14 @@ public class MG_Monster : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, _attackRange);
+
+        Vector3 patrolCenter = Application.isPlaying ? _patrolCenterPosition : transform.position;
+        Vector3 leftPoint = patrolCenter + Vector3.left * _patrolRange;
+        Vector3 rightPoint = patrolCenter + Vector3.right * _patrolRange;
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(leftPoint, rightPoint);
+        Gizmos.DrawWireSphere(leftPoint, 0.1f);
+        Gizmos.DrawWireSphere(rightPoint, 0.1f);
     }
 }

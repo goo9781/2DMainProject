@@ -119,6 +119,8 @@ MonoBehaviour:
   _hitFlashTime: 0.5
   _hitKnockBackPowerX: 100
   _hitKnockBackStopTime: 0.15
+  _patrolRange: 2
+  _patrolSpeed: 1.2
 --- !u!70 &2921584214612762938
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
