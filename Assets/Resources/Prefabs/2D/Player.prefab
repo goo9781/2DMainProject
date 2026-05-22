@@ -301,7 +301,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 2
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84a3d0329312cf042a169df183d5fb32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
-  _moveSpeed: 8
+  _moveSpeed: 6.5
   _jumpForce: 10
   _groundCheck: {fileID: 1008033817598585250}
   _checkRadius: 0.5
@@ -343,8 +343,6 @@ MonoBehaviour:
   _knockBackPowerX: 5
   _knockBackPowerY: 5
   _knockBackStopTime: 0.4
-  _attackKey: 106
-  _attackCoolTime: 0.5
 --- !u!70 &7051000365550757189
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
