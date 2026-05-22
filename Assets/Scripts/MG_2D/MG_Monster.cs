@@ -412,7 +412,7 @@ public class MG_Monster : MonoBehaviour
         Vector3 leftPoint = patrolCenter + Vector3.left * _patrolRange;
         Vector3 rightPoint = patrolCenter + Vector3.right * _patrolRange;
 
-        Gizmos.color = Color.green;
+        Gizmos.color = Color.magenta;
         Gizmos.DrawLine(leftPoint, rightPoint);
         Gizmos.DrawWireSphere(leftPoint, 0.1f);
         Gizmos.DrawWireSphere(rightPoint, 0.1f);
