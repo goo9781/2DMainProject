@@ -31,15 +31,21 @@ public class MGGameObjectManager : MonoBehaviour
 
     public GameObject RequestSpawnMonster(Vector3 spawnPosition)
     {
-        if (Prefab_Monster == null)
+        return RequestSpawnMonster(Prefab_Monster, spawnPosition);
+    }
+
+    //몬스터 프리팹 오버로딩
+    public GameObject RequestSpawnMonster(GameObject monsterPrefab, Vector3 spawnPosition)
+    {
+        if (monsterPrefab == null)
         {
-            Debug.LogWarning("몬스터 프리팹이 등록되지 않았습니다.");
+            Debug.LogWarning("생성할 몬스터 프리팹이 없습니다.");
             return null;
         }
 
         Transform parent = Root_Monster != null ? Root_Monster : transform;
 
-        GameObject monsterObj = Instantiate(Prefab_Monster, spawnPosition, Quaternion.identity, parent);
+        GameObject monsterObj = Instantiate(monsterPrefab, spawnPosition, Quaternion.identity, parent);
 
         if (monsterObj == null)
         {
