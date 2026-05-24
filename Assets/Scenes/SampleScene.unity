@@ -361,6 +361,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2479563099404411610, guid: cae92e5bb45ba474499ecde72427f919, type: 3}
+      propertyPath: Prefab_SpawnObject
+      value: 
+      objectReference: {fileID: 6649763501422610752, guid: 0b76165c57517e5468b150f109bf39bc, type: 3}
     - target: {fileID: 5357026046896711687, guid: cae92e5bb45ba474499ecde72427f919, type: 3}
       propertyPath: m_Name
       value: SpawnSpot_Monster (2)
@@ -7795,6 +7799,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2479563099404411610, guid: cae92e5bb45ba474499ecde72427f919, type: 3}
+      propertyPath: Prefab_SpawnObject
+      value: 
+      objectReference: {fileID: 8805761445887332303, guid: 12ad2c9f332bbe04b8b7d4200e56b8a0, type: 3}
     - target: {fileID: 5357026046896711687, guid: cae92e5bb45ba474499ecde72427f919, type: 3}
       propertyPath: m_Name
       value: SpawnSpot_Monster (1)
@@ -8280,6 +8288,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2479563099404411610, guid: cae92e5bb45ba474499ecde72427f919, type: 3}
+      propertyPath: Prefab_SpawnObject
+      value: 
+      objectReference: {fileID: 6649763501422610752, guid: 0b76165c57517e5468b150f109bf39bc, type: 3}
     - target: {fileID: 5357026046896711687, guid: cae92e5bb45ba474499ecde72427f919, type: 3}
       propertyPath: m_Name
       value: SpawnSpot_Monster

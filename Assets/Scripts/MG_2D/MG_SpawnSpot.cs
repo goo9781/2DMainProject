@@ -124,6 +124,12 @@ public class MG_SpawnSpot : MonoBehaviour
             return;
         }
 
+        if (Prefab_SpawnObject == null)
+        {
+            Debug.LogWarning("SpawnSpot에 몬스터 프리팹이 등록되지 않았습니다.");
+            return;
+        }
+
         Vector3 spawnPosition = transform.position;
 
         if (Transform_SpawnPosition != null)
@@ -131,6 +137,6 @@ public class MG_SpawnSpot : MonoBehaviour
             spawnPosition = Transform_SpawnPosition.position;
         }
 
-        MGGameObjectManager.Inst.RequestSpawnMonster(spawnPosition);
+        MGGameObjectManager.Inst.RequestSpawnMonster(Prefab_SpawnObject, spawnPosition);
     }
 }
