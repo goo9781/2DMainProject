@@ -10,7 +10,7 @@ public class GameDataBase
 public class MGMonsterData : GameDataBase
 {
     public string Name;
-    public string Descreiption;
+    public string Description;
     public string IconPath;
     public string PrefabPath;
 
