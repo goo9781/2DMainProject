@@ -1,11 +1,16 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class MG_Monster : MonoBehaviour
 {
-    [Header("몬스터 상태")]
+    [Header("데이터 설정")]
+    [SerializeField] private string _monsterDataId;
+    
+    [Header("몬스터 스탯")]
     [SerializeField] private int _maxHp = 30;
     [SerializeField] private int _currentHp;
+    [SerializeField] private int _attackDamage = 1;
 
     [Header("애니메이터")]
     [SerializeField] private Animator Animator_Monster;
@@ -14,7 +19,6 @@ public class MG_Monster : MonoBehaviour
     [SerializeField] private float _moveSpeed = 2f;
 
     [Header("공격 설정")]
-    [SerializeField] private int _attackDamage = 10;
     [SerializeField] private float _detectRange = 3f;
     [SerializeField] private float _attackRange = 1f;
     [SerializeField] private float _attackCoolTime = 1.5f;
@@ -33,6 +37,7 @@ public class MG_Monster : MonoBehaviour
 
     private Rigidbody2D _rigidBody;
     private Transform _player;
+    private MGMonsterData _monsterData;
 
     private float _attackTimer;
     private float _moveDirectionX;
@@ -117,6 +122,53 @@ public class MG_Monster : MonoBehaviour
         }
 
         Move();
+    }
+
+    public void InitMonsterData(string monsterDataId)
+    {
+        _monsterDataId = monsterDataId;
+
+        if (string.IsNullOrEmpty(_monsterDataId))
+        {
+            Debug.LogWarning($"{gameObject.name} 몬스터 데이터ID가 비어있습니다.");
+            return;
+        }
+
+        if (MGGameDataManager.Inst == null)
+        {
+            Debug.LogError("MGGameDataManager.Inst가 없습니다. 몬스터 데이터를 적용할 수 없습니다.");
+            return;
+        }
+
+        _monsterData = MGGameDataManager.Inst.GetMonsterData(_monsterDataId);
+
+        if (_monsterData == null)
+        {
+            Debug.LogError($"몬스터 데이터를 찾을 수 없습니다. DataId : {_monsterDataId}");
+            return;
+        }
+
+        ApplyMonsterData(_monsterData);
+    }
+
+    private void ApplyMonsterData(MGMonsterData monsterData)
+    {
+        _maxHp = monsterData.MaxHp;
+        _currentHp = _maxHp;
+
+        _attackDamage = monsterData.AttackDamage;
+
+        _moveSpeed = monsterData.MoveSpeed;
+        _patrolSpeed = monsterData.PatrolSpeed;
+        _patrolRange = monsterData.PatrolRange;
+
+        _detectRange = monsterData.DetectRange;
+        _attackRange = monsterData.AttackRange;
+        _attackCoolTime = monsterData.AttackCoolTime;
+
+        _currentMoveSpeed = _patrolSpeed;
+
+        Debug.Log($"몬스터 데이터 적용 완료 : {_monsterDataId} / {monsterData.Name}");
     }
 
     public void TakeDamage(int damage)
