@@ -137,6 +137,14 @@ public class MG_SpawnSpot : MonoBehaviour
             spawnPosition = Transform_SpawnPosition.position;
         }
 
-        MGGameObjectManager.Inst.RequestSpawnMonster(Prefab_SpawnObject, spawnPosition);
+        MG_Monster monster = MGGameObjectManager.Inst.RequestSpawnMonster(Prefab_SpawnObject, spawnPosition);
+
+        if (monster == null)
+        {
+            Debug.LogWarning("몬스터 생성에 실패했습니다.");
+            return;
+        }
+
+        monster.InitMonsterData(_spawnObjectDataId);
     }
 }
