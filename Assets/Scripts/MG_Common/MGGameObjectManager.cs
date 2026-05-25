@@ -29,13 +29,13 @@ public class MGGameObjectManager : MonoBehaviour
         return _objectInstanceKeyGenerator;
     }
 
-    public GameObject RequestSpawnMonster(Vector3 spawnPosition)
+    public MG_Monster RequestSpawnMonster(Vector3 spawnPosition)
     {
         return RequestSpawnMonster(Prefab_Monster, spawnPosition);
     }
 
     //몬스터 프리팹 오버로딩
-    public GameObject RequestSpawnMonster(GameObject monsterPrefab, Vector3 spawnPosition)
+    public MG_Monster RequestSpawnMonster(GameObject monsterPrefab, Vector3 spawnPosition)
     {
         if (monsterPrefab == null)
         {
@@ -53,6 +53,15 @@ public class MGGameObjectManager : MonoBehaviour
             return null;
         }
 
+        MG_Monster monster = monsterObj.GetComponent<MG_Monster>();
+
+        if (monster == null)
+        {
+            Debug.LogWarning($"{monsterObj.name}에 MG_Monster 컴포넌트가 없습니다.");
+            Destroy(monsterObj);
+            return null;
+        }
+
         int instanceId = GenerateInstanceId();
 
         if (_createdGameObjectDic.ContainsKey(instanceId))
@@ -64,24 +73,11 @@ public class MGGameObjectManager : MonoBehaviour
 
         _createdGameObjectDic.Add(instanceId, monsterObj);
 
-        InitGeneratedMonster(instanceId, monsterObj);
+        monster.InitMonsterInfo(instanceId);
 
         Debug.Log($"몬스터 생성 완료 / InstanceId : {instanceId} / Name : {monsterObj.name}");
 
-        return monsterObj;
-    }
-
-    private void InitGeneratedMonster(int instanceId, GameObject monsterObj)
-    {
-        MG_Monster monster = monsterObj.GetComponent<MG_Monster>();
-
-        if (monster == null)
-        {
-            Debug.LogWarning($"{monsterObj.name}에 MG_Monster 컴포넌트가 없습니다.");
-            return;
-        }
-
-        monster.InitMonsterInfo(instanceId);
+        return monster;
     }
 
     public GameObject GetGameObjectCanBeNull(int instanceId)
