@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MGGameResultUI : MGUIBase
@@ -46,11 +45,21 @@ public class MGGameResultUI : MGUIBase
 
     private void OnClickConfirm()
     {
+        if (MGGameManager.Inst == null)
+        {
+            return;
+        }
+
         MGGameManager.Inst.RestartGame();
     }
 
     private void OnClickExit()
     {
-        MGGameManager.Inst.ExitGame();
+        if (MGGameManager.Inst == null)
+        {
+            return;
+        }
+        
+        MGGameManager.Inst.GoMain();
     }
 }

@@ -18,7 +18,6 @@ public class MG_2DPlayer : MonoBehaviour
 
     [Header("플레이어 상태")]
     [SerializeField] private int _dropItemCount;
-    [SerializeField] private MG_BattleUI BattleUI;
 
     [Header("피격 설정")]
     [SerializeField] private SpriteRenderer SpriteRenderer_Player;
@@ -162,10 +161,7 @@ public class MG_2DPlayer : MonoBehaviour
 
         OnDamaged(attackerPosition);
 
-        if (BattleUI != null)
-        {
-            BattleUI.RefreshHp();
-        }
+        RefreshBattleUI();
 
         if (playerModel.CurrentHp <= 0)
         {
@@ -217,6 +213,18 @@ public class MG_2DPlayer : MonoBehaviour
         {
             SpriteRenderer_Player.color = new Color(1f, 1f, 1f, 1f);
         }
+    }
+
+    private void RefreshBattleUI()
+    {
+        MG_BattleUI battleUI = FindFirstObjectByType<MG_BattleUI>();
+
+        if (battleUI == null)
+        {
+            return;
+        }
+
+        battleUI.RefreshHp();
     }
 
     private void Death()
