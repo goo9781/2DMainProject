@@ -1,0 +1,32 @@
+[
+  {
+    "Id": "mob_goblin_001",
+    "Name": "그린 고블린",
+    "Description": "녹색 고블린, 적을 보면 돌을 던진다.",
+    "IconPath": null,
+    "PrefabPath": null,
+    "MaxHp": 10,
+    "AttackDamage": 10,
+    "MoveSpeed": 2,
+    "PatrolSpeed": 1.5,
+    "PatrolRange": 2,
+    "DetectRange": 3,
+    "AttackRange": 1,
+    "AttackCoolTime": 1.5
+  },
+  {
+    "Id": "mob_goblin_002",
+    "Name": "레드 고블린",
+    "Description": "빨간색 고블린, 근접 무기를 휘둘러 적을 공격한다.",
+    "IconPath": null,
+    "PrefabPath": null,
+    "MaxHp": 30,
+    "AttackDamage": 20,
+    "MoveSpeed": 3,
+    "PatrolSpeed": 1.5,
+    "PatrolRange": 2,
+    "DetectRange": 3,
+    "AttackRange": 1,
+    "AttackCoolTime": 1.5
+  }
+]
