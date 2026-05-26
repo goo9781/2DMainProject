@@ -12,10 +12,12 @@ public enum MGUIRootType
 
 public enum MGUIType
 {
+    MGMainUI,
     MGSimplePopup,
     MGLoadingUI,
     MGDialogueUI,
     MGGameResultUI,
+    MGBattleUI,
 }
 
 public static class MGUIManagerExtension
@@ -77,4 +79,25 @@ public static class MGUIManagerExtension
             gameResultUI.SetUI(isSuccess);
         }
     }
+
+    public static void OpenMainUI(this MGUIManager uiManager)
+    {
+        uiManager.OpenUI(MGUIRootType.MainUI, MGUIType.MGMainUI);
+    }
+
+    public static void CloseMainUI(this MGUIManager uiManager)
+    {
+        uiManager.CloseUI(MGUIRootType.MainUI, MGUIType.MGMainUI);
+    }
+
+    public static void OpenBattleUI(this MGUIManager uiManager)
+    {
+        uiManager.OpenUI(MGUIRootType.MainUI, MGUIType.MGBattleUI);
+    }
+
+    public static void CloseBattleUI(this MGUIManager uiManager)
+    {
+        uiManager.CloseUI(MGUIRootType.MainUI, MGUIType.MGBattleUI);
+    }
+
 }
