@@ -124,9 +124,35 @@ public class MG_SpawnSpot : MonoBehaviour
             return;
         }
 
-        if (Prefab_SpawnObject == null)
+        if (MGGameDataManager.Inst == null)
         {
-            Debug.LogWarning("SpawnSpot에 몬스터 프리팹이 등록되지 않았습니다.");
+            Debug.LogWarning("MGGameDataManager가 없습니다.");
+            return;
+        }
+
+        MGMonsterData monsterData = MGGameDataManager.Inst.GetMonsterData(_spawnObjectDataId);
+
+        if (monsterData == null)
+        {
+            Debug.LogWarning($"몬스터 데이터를 찾을 수 없습니다. DataId : {_spawnObjectDataId}");
+            return;
+        }
+
+        GameObject monsterPrefab = null;
+
+        if (string.IsNullOrEmpty(monsterData.PrefabPath) == false)
+        {
+            monsterPrefab = Resources.Load<GameObject>(monsterData.PrefabPath);
+        }
+
+        if (monsterPrefab == null)
+        {
+            monsterPrefab = Prefab_SpawnObject;
+        }
+
+        if (monsterPrefab == null)
+        {
+            Debug.LogWarning($"생성할 몬스터 프리팹이 없습니다. DataId : {_spawnObjectDataId}");
             return;
         }
 
@@ -137,7 +163,7 @@ public class MG_SpawnSpot : MonoBehaviour
             spawnPosition = Transform_SpawnPosition.position;
         }
 
-        MG_Monster monster = MGGameObjectManager.Inst.RequestSpawnMonster(Prefab_SpawnObject, spawnPosition);
+        MG_Monster monster = MGGameObjectManager.Inst.RequestSpawnMonster(monsterPrefab, spawnPosition);
 
         if (monster == null)
         {
