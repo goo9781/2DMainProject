@@ -44,10 +44,7 @@ public class MGGameManager : MonoBehaviour
 
     private void Start()
     {
-        StartGame();
-
-        //메인 UI 추가후 변경
-        //ChangeState(MGGameState.Main);
+        StartMain();
     }
     
     public void ChangeState(MGGameState state)
@@ -58,9 +55,30 @@ public class MGGameManager : MonoBehaviour
 
     public void StartGame()
     {
+        Time.timeScale = 1f;
+
         ChangeState(MGGameState.Playing);
 
+        if (MGUIManager.Instance != null)
+        {
+            MGUIManager.Instance.CloseMainUI();
+            MGUIManager.Instance.OpenBattleUI();
+        }
+    }
+
+    public void StartMain()
+    {
         Time.timeScale = 1f;
+
+        ChangeState(MGGameState.Main);
+
+        if (MGUIManager.Instance != null)
+        {
+            MGUIManager.Instance.CloseBattleUI();
+            MGUIManager.Instance.OpenMainUI();
+        }
+
+        ResetPlayerForRestart();
     }
 
     public void PauseGame()
@@ -106,7 +124,10 @@ public class MGGameManager : MonoBehaviour
 
         Time.timeScale = 0f;
 
-        MGUIManager.Instance.OpenGameResultUI(true);
+        if (MGUIManager.Instance != null)
+        {
+            MGUIManager.Instance.OpenGameResultUI(true);
+        }
     }
 
     public void GameOver()
@@ -122,7 +143,10 @@ public class MGGameManager : MonoBehaviour
 
         Time.timeScale = 0f;
 
-        MGUIManager.Instance.OpenGameResultUI(false);
+        if (MGUIManager.Instance != null)
+        {
+            MGUIManager.Instance.OpenGameResultUI(false);
+        }
     }
 
     public void RestartGame()
@@ -153,7 +177,14 @@ public class MGGameManager : MonoBehaviour
 
         ChangeState(MGGameState.Main);
 
-        SceneManager.LoadScene("MainScene");
+        if (MGUIManager.Instance != null)
+        {
+            MGUIManager.Instance.CloseBattleUI();
+            MGUIManager.Instance.ClosePopupUI(MGUIType.MGGameResultUI);
+            MGUIManager.Instance.OpenMainUI();
+        }
+
+        ResetPlayerForRestart();
     }
 
     public void ExitGame()
