@@ -34,6 +34,16 @@ public class MG_2DPlayer : MonoBehaviour
     private bool _isInvincible;
     private bool _isDamaged;
 
+    private bool IsPlayingState()
+    {
+        if (MGGameManager.Inst == null)
+        {
+            return false;
+        }
+
+        return MGGameManager.Inst.CurrentState == MGGameState.Playing;
+    }
+
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
@@ -46,7 +56,14 @@ public class MG_2DPlayer : MonoBehaviour
         if(_isDead)
         {
             return;
-        }        
+        }     
+        
+        if (IsPlayingState() == false)
+        {
+            _horizontalInput = 0f;
+            UpdatePlayerAnimState();
+            return;
+        }
 
         _horizontalInput = Input.GetAxisRaw("Horizontal");
 
@@ -73,6 +90,12 @@ public class MG_2DPlayer : MonoBehaviour
         if(_isDead)
         {
             _rigidBody.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (IsPlayingState() == false)
+        {
+            _rigidBody.linearVelocity = new Vector2(0f, _rigidBody.linearVelocity.y);
             return;
         }
 
@@ -140,6 +163,11 @@ public class MG_2DPlayer : MonoBehaviour
     }
     public void TakeDamage(int damage, Vector2 attackerPosition)
     {
+        if (IsPlayingState() == false)
+        {
+            return;
+        }
+        
         if (_isDead)
         {
             return;

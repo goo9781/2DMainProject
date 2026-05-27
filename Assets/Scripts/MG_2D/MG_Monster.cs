@@ -52,6 +52,16 @@ public class MG_Monster : MonoBehaviour
     private bool _isDamaged;
     private bool _isRegisteredObject;
 
+    private bool IsPlayingState()
+    {
+        if (MGGameManager.Inst == null)
+        {
+            return false;
+        }
+
+        return MGGameManager.Inst.CurrentState == MGGameState.Playing;
+    }
+
     private void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
@@ -72,6 +82,12 @@ public class MG_Monster : MonoBehaviour
     {
         if (_isDead)
         {
+            return;
+        }
+
+        if (IsPlayingState() == false)
+        {
+            StopMove();
             return;
         }
 
@@ -117,6 +133,16 @@ public class MG_Monster : MonoBehaviour
     {
         if (_isDead)
         {
+            return;
+        }
+
+        if (IsPlayingState() == false)
+        {
+            if (_rigidBody != null)
+            {
+                _rigidBody.linearVelocity = new Vector2(0f, _rigidBody.linearVelocity.y);
+            }
+
             return;
         }
 
@@ -178,6 +204,11 @@ public class MG_Monster : MonoBehaviour
 
     public void TakeDamage(int damage, Vector2 attackerPosition)
     {
+        if (IsPlayingState() == false)
+        {
+            return;
+        }
+        
         if (_isDead)
         {
             return;
