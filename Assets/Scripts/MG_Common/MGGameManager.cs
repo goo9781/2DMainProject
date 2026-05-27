@@ -20,6 +20,8 @@ public class MGGameManager : MonoBehaviour
     private MGGameState _currentState = MGGameState.None;
     private MGGameState _prevState = MGGameState.None;
 
+    private bool _isStartGameAfterSceneLoad;
+
     public MGPlayerModel PlayerModel
     {
         get { return _playerModel; }
@@ -28,6 +30,16 @@ public class MGGameManager : MonoBehaviour
     public MGGameState CurrentState
     {
         get { return _currentState; }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void Awake()
@@ -57,13 +69,12 @@ public class MGGameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        ChangeState(MGGameState.Playing);
+        _isStartGameAfterSceneLoad = true;
 
-        if (MGUIManager.Instance != null)
-        {
-            MGUIManager.Instance.CloseMainUI();
-            MGUIManager.Instance.OpenBattleUI();
-        }
+        ResetPlayerForRestart();
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
     }
 
     public void StartMain()
@@ -153,7 +164,7 @@ public class MGGameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        ChangeState(MGGameState.Playing);
+        _isStartGameAfterSceneLoad = true;
 
         ResetPlayerForRestart();
 
@@ -182,6 +193,35 @@ public class MGGameManager : MonoBehaviour
             MGUIManager.Instance.CloseBattleUI();
             MGUIManager.Instance.ClosePopupUI(MGUIType.MGGameResultUI);
             MGUIManager.Instance.OpenMainUI();
+        }
+
+        ResetPlayerForRestart();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (_isStartGameAfterSceneLoad == false)
+        {
+            return;
+        }
+
+        _isStartGameAfterSceneLoad = false;
+
+        StartGameAfterSceneLoad();
+    }
+
+    //결과 화면 -> 메인 화면 이동 후 다시 게임 시작 시 스테이지 초기화
+    private void StartGameAfterSceneLoad()
+    {
+        Time.timeScale = 1f;
+
+        ChangeState(MGGameState.Playing);
+
+        if (MGUIManager.Instance != null)
+        {
+            MGUIManager.Instance.CloseMainUI();
+            MGUIManager.Instance.ClosePopupUI(MGUIType.MGGameResultUI);
+            MGUIManager.Instance.OpenBattleUI();
         }
 
         ResetPlayerForRestart();
