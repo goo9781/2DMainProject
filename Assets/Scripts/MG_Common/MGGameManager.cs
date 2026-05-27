@@ -218,6 +218,7 @@ public class MGGameManager : MonoBehaviour
         {
             MGUIManager.Instance.CloseBattleUI();
             MGUIManager.Instance.ClosePopupUI(MGUIType.MGGameResultUI);
+            MGUIManager.Instance.ClosePausePopupUI();
             MGUIManager.Instance.OpenMainUI();
         }
 
