@@ -58,7 +58,29 @@ public class MGGameManager : MonoBehaviour
     {
         StartMain();
     }
-    
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
+        }
+    }
+
+    private void TogglePause()
+    {
+        if (_currentState == MGGameState.Playing)
+        {
+            PauseGame();
+            return;
+        }
+
+        if (_currentState == MGGameState.Pause)
+        {
+            ResumeGame();
+        }
+    }
+
     public void ChangeState(MGGameState state)
     {
         _prevState = _currentState;
