@@ -103,8 +103,10 @@ public class MGGameManager : MonoBehaviour
 
         Time.timeScale = 0f;
 
-        //일시정지 팝업 만들면 연결
-        //MGUIManager.Instance.OpenPausePopup();
+        if (MGUIManager.Instance != null)
+        {
+            MGUIManager.Instance.OpenPausePopupUI();
+        }
     }
 
     public void ResumeGame()
@@ -118,8 +120,10 @@ public class MGGameManager : MonoBehaviour
 
         Time.timeScale = 1f;
 
-        //일시정지 팝업 닫기에 연결
-        //MGUIManager.Instance.ClosePausePopup();
+        if (MGUIManager.Instance != null)
+        {
+            MGUIManager.Instance.ClosePausePopupUI();
+        }
     }
 
     public void StageClearGame()

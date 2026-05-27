@@ -17,6 +17,7 @@ public enum MGUIType
     MGLoadingUI,
     MGDialogueUI,
     MGGameResultUI,
+    MGPausePopupUI,
     MGBattleUI,
 }
 
@@ -78,6 +79,16 @@ public static class MGUIManagerExtension
         {
             gameResultUI.SetUI(isSuccess);
         }
+    }
+
+    public static void OpenPausePopupUI(this MGUIManager uiManager)
+    {
+        uiManager.OpenPopupUI(MGUIType.MGPausePopupUI);
+    }
+
+    public static void ClosePausePopupUI(this MGUIManager uiManager)
+    {
+        uiManager.ClosePopupUI(MGUIType.MGPausePopupUI);
     }
 
     public static void OpenMainUI(this MGUIManager uiManager)
