@@ -4,86 +4,74 @@ public class MG_2DPlayerAttack : MonoBehaviour
 {
     [Header("애니메이터")]
     [SerializeField] private Animator Animator_Entity;
-    
-    [Header("공격 설정")]
-    [SerializeField] private Transform _attackPoint;
-    [SerializeField] private float _attackRadius = 0.7f;
-    [SerializeField] private int _attackDamage = 10;
-    [SerializeField] private LayerMask _monsterLayer;
-    [SerializeField] private KeyCode _attackKey = KeyCode.J;
-    [SerializeField] private float _attackCoolTime = 0.5f;
 
-    private float _attackTimer;
+    [Header("방어 설정")]
+    [SerializeField] private KeyCode _guardKey = KeyCode.J;
+    [SerializeField] private bool _isMoveLockOnGuard = true;
+
+    private bool _isGuarding;
+
+    public bool IsGuarding
+    {
+        get { return _isGuarding; }
+    }
+
+    public bool IsMoveLockOnGuard
+    {
+        get { return _isMoveLockOnGuard; }
+    }
 
     private void Update()
     {
-       if (_attackTimer > 0f)
+        if (IsPlayingState() == false)
         {
-            _attackTimer -= Time.deltaTime;
+            EndGuard();
+            return;
         }
-        
-        if (Input.GetKeyDown(_attackKey))
+
+        if (Input.GetKeyDown(_guardKey))
         {
-            Attack();
+            StartGuard();
+        }
+
+        if (Input.GetKeyUp(_guardKey))
+        {
+            EndGuard();
         }
     }
 
-    private void Attack()
+    private bool IsPlayingState()
     {
-        if (_attackTimer > 0f)
+        if (MGGameManager.Inst == null)
         {
-            return;
+            return false;
         }
 
-        _attackTimer = _attackCoolTime;
-
-        PlayAttackAnimation();
+        return MGGameManager.Inst.CurrentState == MGGameState.Playing;
     }
 
-    private void PlayAttackAnimation()
+    private void StartGuard()
     {
-        if (Animator_Entity == null)
+        if (_isGuarding)
         {
             return;
         }
 
-        Animator_Entity.SetTrigger("Attack");
+        _isGuarding = true;
+
+        Debug.Log("방어 시작");
     }
 
-        private void OnDrawGizmos()
+    private void EndGuard()
     {
-        if (_attackPoint == null)
+        if (_isGuarding == false)
         {
             return;
         }
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_attackPoint.position, _attackRadius);
-    }
+        _isGuarding = false;
 
-    public void AnimationEvent_PlayerAttackHit()
-    {
-        Collider2D hitCollider = Physics2D.OverlapCircle(
-            _attackPoint.position,
-            _attackRadius,
-            _monsterLayer
-            );
-
-        if (hitCollider == null)
-        {
-            return;
-        }
-
-        MG_Monster monster = hitCollider.GetComponent<MG_Monster>();
-
-        if (monster == null)
-        {
-            return;
-        }
-
-        Debug.Log("플레이어 공격 성공");
-
-        monster.TakeDamage(_attackDamage, transform.position);
+        Debug.Log("방어 종료");
     }
 }
 
