@@ -8212,7 +8212,7 @@ PrefabInstance:
     - target: {fileID: 8833994094923462921, guid: 256b2903863a87245b65a2ccb80fa4af, type: 3}
       propertyPath: Prefab_GuardSuccessEffect
       value: 
-      objectReference: {fileID: 872123893101391013, guid: ef8c1c93091f57d4e9115249a70dbe0c, type: 3}
+      objectReference: {fileID: 2406894111662463522, guid: ef8c1c93091f57d4e9115249a70dbe0c, type: 3}
     - target: {fileID: 8874676338972304652, guid: 256b2903863a87245b65a2ccb80fa4af, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.448
