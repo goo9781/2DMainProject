@@ -15,6 +15,10 @@ public class MG_2DPlayerAttack : MonoBehaviour
     [SerializeField] private Transform Transform_GuardEffectPosition;
     [SerializeField] private float _guardEffectDestroyTime = 1f;
 
+    [Header("방어 성공 사운드")]
+    [SerializeField] private AudioSource AudioSource_GuardSuccess;
+    [SerializeField] private AudioClip AudioClip_GuardSuccess;
+
     private bool _isGuarding;
 
     public bool IsGuarding
@@ -112,6 +116,21 @@ public class MG_2DPlayerAttack : MonoBehaviour
         }
     }
 
+    private void PlayGuardSuccessSound()
+    {
+        if (AudioSource_GuardSuccess == null)
+        {
+            return;
+        }
+
+        if (AudioClip_GuardSuccess == null)
+        {
+            return;
+        }
+
+        AudioSource_GuardSuccess.PlayOneShot(AudioClip_GuardSuccess);
+    }
+
     public bool TryReflectMonsterAttack(MG_Monster attackerMonster)
     {
         if (_isGuarding == false)
@@ -125,6 +144,7 @@ public class MG_2DPlayerAttack : MonoBehaviour
         }
 
         PlayGuardSuccessEffect();
+        PlayGuardSuccessSound();
 
         attackerMonster.TakeDamage(_guardReflectDamage, transform.position);
 
