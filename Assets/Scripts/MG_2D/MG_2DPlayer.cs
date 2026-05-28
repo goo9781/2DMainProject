@@ -27,12 +27,15 @@ public class MG_2DPlayer : MonoBehaviour
     [SerializeField] private float _knockBackStopTime = 0.2f;
 
     private Rigidbody2D _rigidBody;
-    private bool _isGrounded;
     private float _horizontalInput;
+
+    private bool _isGrounded;
     private bool _lookRight = true;
     private bool _isDead;
     private bool _isInvincible;
     private bool _isDamaged;
+
+    private MG_2DPlayerAttack _playerAttack;
 
     private bool IsPlayingState()
     {
@@ -47,6 +50,7 @@ public class MG_2DPlayer : MonoBehaviour
     void Awake()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
+        _playerAttack = GetComponent<MG_2DPlayerAttack>();
 
         _rigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
@@ -66,6 +70,13 @@ public class MG_2DPlayer : MonoBehaviour
         }
 
         _horizontalInput = Input.GetAxisRaw("Horizontal");
+
+        if (IsGuardMoveLocked())
+        {
+            _horizontalInput = 0f;
+            UpdatePlayerAnimState();
+            return;
+        }
 
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
@@ -106,12 +117,33 @@ public class MG_2DPlayer : MonoBehaviour
 
     void Move()
     {
+        if (IsGuardMoveLocked())
+        {
+            _rigidBody.linearVelocity = new Vector2(0f, _rigidBody.linearVelocity.y);
+            return;
+        }
+        
         if (_isDamaged)
         {
             return;
         }
         
         _rigidBody.linearVelocity = new Vector2(_horizontalInput * _moveSpeed, _rigidBody.linearVelocity.y);
+    }
+
+    private bool IsGuardMoveLocked()
+    {
+        if (_playerAttack == null)
+        {
+            return false;
+        }
+
+        if (_playerAttack.IsGuarding == false)
+        {
+            return false;
+        }
+
+        return _playerAttack.IsMoveLockOnGuard;
     }
 
     void Jump()
