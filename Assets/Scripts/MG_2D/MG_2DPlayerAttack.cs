@@ -10,6 +10,11 @@ public class MG_2DPlayerAttack : MonoBehaviour
     [SerializeField] private bool _isMoveLockOnGuard = true;
     [SerializeField] private int _guardReflectDamage = 999;
 
+    [Header("방어 성공 이펙트")]
+    [SerializeField] private GameObject Prefab_GuardSuccessEffect;
+    [SerializeField] private Transform Transform_GuardEffectPosition;
+    [SerializeField] private float _guardEffectDestroyTime = 1f;
+
     private bool _isGuarding;
 
     public bool IsGuarding
@@ -61,8 +66,6 @@ public class MG_2DPlayerAttack : MonoBehaviour
         _isGuarding = true;
 
         SetGuardAnimation(true);
-
-        Debug.Log("방어 시작");
     }
 
     private void EndGuard()
@@ -75,8 +78,6 @@ public class MG_2DPlayerAttack : MonoBehaviour
         _isGuarding = false;
 
         SetGuardAnimation(false);
-
-        Debug.Log("방어 종료");
     }
 
     private void SetGuardAnimation(bool isGuard)
@@ -87,6 +88,28 @@ public class MG_2DPlayerAttack : MonoBehaviour
         }
 
         Animator_Entity.SetBool("IsGuard", isGuard);
+    }
+
+    private void PlayGuardSuccessEffect()
+    {
+        if (Prefab_GuardSuccessEffect == null)
+        {
+            return;
+        }
+
+        Vector3 effectPosition = transform.position;
+
+        if (Transform_GuardEffectPosition != null)
+        {
+            effectPosition = Transform_GuardEffectPosition.position;
+        }
+
+        GameObject effectObject = Instantiate(Prefab_GuardSuccessEffect, effectPosition, Quaternion.identity);
+
+        if (_guardEffectDestroyTime > 0f)
+        {
+            Destroy(effectObject, _guardEffectDestroyTime);
+        }
     }
 
     public bool TryReflectMonsterAttack(MG_Monster attackerMonster)
@@ -101,7 +124,7 @@ public class MG_2DPlayerAttack : MonoBehaviour
             return false;
         }
 
-        Debug.Log("방어 성공 - 몬스터 공격 반사");
+        PlayGuardSuccessEffect();
 
         attackerMonster.TakeDamage(_guardReflectDamage, transform.position);
 
