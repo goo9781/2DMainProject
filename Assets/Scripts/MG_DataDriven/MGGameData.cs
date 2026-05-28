@@ -6,6 +6,14 @@ public class GameDataBase
     public string Id;
 }
 
+public enum MGMonsterAttackType
+{
+    None = 0,
+    Melee,
+    Ranged
+}
+
+
 [System.Serializable]
 public class MGMonsterData : GameDataBase
 {
@@ -16,6 +24,9 @@ public class MGMonsterData : GameDataBase
 
     public int MaxHp;
     public int AttackDamage;
+    public string AttackType;
+    public string ProjectilePrefabPath;
+    public float ProjectileSpeed;
 
     public float MoveSpeed;
     public float PatrolSpeed;
