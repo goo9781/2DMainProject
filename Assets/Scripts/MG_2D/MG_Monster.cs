@@ -427,7 +427,7 @@ public class MG_Monster : MonoBehaviour
             return;
         }
 
-        player.TakeDamage(_attackDamage, transform.position);
+        player.TakeDamageFromMonster(_attackDamage, transform.position, this);
     }
 
     public void AnimationEvent_MonsterAttackHit()

@@ -8,6 +8,7 @@ public class MG_2DPlayerAttack : MonoBehaviour
     [Header("방어 설정")]
     [SerializeField] private KeyCode _guardKey = KeyCode.J;
     [SerializeField] private bool _isMoveLockOnGuard = true;
+    [SerializeField] private int _guardReflectDamage = 999;
 
     private bool _isGuarding;
 
@@ -72,6 +73,25 @@ public class MG_2DPlayerAttack : MonoBehaviour
         _isGuarding = false;
 
         Debug.Log("방어 종료");
+    }
+
+    public bool TryReflectMonsterAttack(MG_Monster attackerMonster)
+    {
+        if (_isGuarding == false)
+        {
+            return false;
+        }
+
+        if (attackerMonster == null)
+        {
+            return false;
+        }
+
+        Debug.Log("방어 성공 - 몬스터 공격 반사");
+
+        attackerMonster.TakeDamage(_guardReflectDamage, transform.position);
+
+        return true;
     }
 }
 

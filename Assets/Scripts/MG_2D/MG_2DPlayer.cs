@@ -193,6 +193,32 @@ public class MG_2DPlayer : MonoBehaviour
     {
         TakeDamage(damage, transform.position);
     }
+
+    public void TakeDamageFromMonster(int damage, Vector2 attackerPosition, MG_Monster attackerMonster)
+    {
+        if (IsPlayingState() == false)
+        {
+            return;
+        }
+
+        if (_isDead)
+        {
+            return;
+        }
+
+        if (_playerAttack != null)
+        {
+            bool isReflectSuccess = _playerAttack.TryReflectMonsterAttack(attackerMonster);
+
+            if (isReflectSuccess)
+            {
+                return;
+            }
+        }
+
+        TakeDamage(damage, attackerPosition);
+    }
+
     public void TakeDamage(int damage, Vector2 attackerPosition)
     {
         if (IsPlayingState() == false)
