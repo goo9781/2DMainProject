@@ -60,6 +60,8 @@ public class MG_2DPlayerAttack : MonoBehaviour
 
         _isGuarding = true;
 
+        SetGuardAnimation(true);
+
         Debug.Log("방어 시작");
     }
 
@@ -72,7 +74,19 @@ public class MG_2DPlayerAttack : MonoBehaviour
 
         _isGuarding = false;
 
+        SetGuardAnimation(false);
+
         Debug.Log("방어 종료");
+    }
+
+    private void SetGuardAnimation(bool isGuard)
+    {
+        if (Animator_Entity == null)
+        {
+            return;
+        }
+
+        Animator_Entity.SetBool("IsGuard", isGuard);
     }
 
     public bool TryReflectMonsterAttack(MG_Monster attackerMonster)
