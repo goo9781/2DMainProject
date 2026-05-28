@@ -432,6 +432,17 @@ public class MG_Monster : MonoBehaviour
 
     private void AttackPlayer()
     {
+        if (_attackType == MGMonsterAttackType.Ranged)
+        {
+            AttackPlayerRanged();
+            return;
+        }
+
+        AttackPlayerMelee();
+    }
+
+    private void AttackPlayerMelee()
+    {
         if (_player == null)
         {
             return;
@@ -452,6 +463,16 @@ public class MG_Monster : MonoBehaviour
         }
 
         player.TakeDamageFromMonster(_attackDamage, transform.position, this);
+    }
+
+    private void AttackPlayerRanged()
+    {
+        if (_player == null)
+        {
+            return;
+        }
+
+        Debug.Log($"원거리 몬스터 공격 실행 / ProjectilePath : {_projectilePrefabPath} / Speed : {_projectileSpeed}");
     }
 
     public void AnimationEvent_MonsterAttackHit()
