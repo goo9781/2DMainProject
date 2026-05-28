@@ -1,4 +1,4 @@
-[
+﻿[
   {
     "Id": "mob_goblin_001",
     "Name": "그린 고블린",
@@ -7,11 +7,14 @@
     "PrefabPath": "Prefabs/2D/Monster",
     "MaxHp": 10,
     "AttackDamage": 10,
+    "AttackType": "Ranged",
+    "ProjectilePrefabPath": "Prefabs/2D/Projectile_GoblinStone",
+    "ProjectileSpeed": 6,
     "MoveSpeed": 2,
     "PatrolSpeed": 1.5,
     "PatrolRange": 2,
-    "DetectRange": 3,
-    "AttackRange": 1,
+    "DetectRange": 6,
+    "AttackRange": 4,
     "AttackCoolTime": 1.5
   },
   {
@@ -22,6 +25,9 @@
     "PrefabPath": "Prefabs/2D/Monster_Red",
     "MaxHp": 30,
     "AttackDamage": 20,
+    "AttackType": "Melee",
+    "ProjectilePrefabPath": null,
+    "ProjectileSpeed": 0,
     "MoveSpeed": 3,
     "PatrolSpeed": 1.5,
     "PatrolRange": 2,
