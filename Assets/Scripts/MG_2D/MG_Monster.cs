@@ -21,6 +21,9 @@ public class MG_Monster : MonoBehaviour
     [SerializeField] private float _detectRange = 3f;
     [SerializeField] private float _attackRange = 1f;
     [SerializeField] private float _attackCoolTime = 1.5f;
+    [SerializeField] private MGMonsterAttackType _attackType = MGMonsterAttackType.Melee;
+    [SerializeField] private string _projectilePrefabPath;
+    [SerializeField] private float _projectileSpeed = 6f;
 
     [Header("피격 설정")]
     [SerializeField] private SpriteRenderer SpriteRenderer_Monster;
@@ -191,9 +194,30 @@ public class MG_Monster : MonoBehaviour
         _attackRange = monsterData.AttackRange;
         _attackCoolTime = monsterData.AttackCoolTime;
 
+        _attackType = ConvertAttackType(monsterData.AttackType);
+        _projectilePrefabPath = monsterData.ProjectilePrefabPath;
+        _projectileSpeed = monsterData.ProjectileSpeed;
+
         _currentMoveSpeed = _patrolSpeed;
 
         Debug.Log($"몬스터 데이터 적용 완료 : {_monsterDataId} / {monsterData.Name}");
+    }
+
+    private MGMonsterAttackType ConvertAttackType(string attackType)
+    {
+        if (string.IsNullOrEmpty(attackType))
+        {
+            return MGMonsterAttackType.Melee;
+        }
+
+        if (System.Enum.TryParse(attackType, true, out MGMonsterAttackType result))
+        {
+            return result;
+        }
+
+        Debug.LogWarning($"알 수 없는 몬스터 공격 타입입니다. AttackType : {attackType}");
+
+        return MGMonsterAttackType.Melee;
     }
 
     public void TakeDamage(int damage)
