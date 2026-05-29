@@ -430,6 +430,8 @@ public class MG_Monster : MonoBehaviour
 
         _attackTimer = _attackCoolTime;
 
+        LookAtPlayer();
+
         PlayAttack();
     }
 
@@ -508,7 +510,8 @@ public class MG_Monster : MonoBehaviour
             return;
         }
 
-        Vector2 moveDirection = _player.position - spawnPosition;
+        float directionX = _player.position.x - transform.position.x;
+        Vector2 moveDirection = directionX >= 0f ? Vector2.right : Vector2.left;
 
         projectile.InitProjectile(moveDirection, _projectileSpeed, _attackDamage, this);
 
@@ -518,6 +521,25 @@ public class MG_Monster : MonoBehaviour
     public void AnimationEvent_MonsterAttackHit()
     {
         AttackPlayer();
+    }
+
+    private void LookAtPlayer()
+    {
+        if (_player == null)
+        {
+            return;
+        }
+
+        float directionX = _player.position.x - transform.position.x;
+
+        if (directionX > 0f)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(_originScale.x), _originScale.y, _originScale.z);
+        }
+        else if (directionX < 0f)
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(_originScale.x), _originScale.y, _originScale.z);
+        }
     }
 
     private void LookAtMoveDirection()
