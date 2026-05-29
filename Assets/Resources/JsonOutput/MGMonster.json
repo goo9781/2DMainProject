@@ -13,8 +13,8 @@
     "MoveSpeed": 2,
     "PatrolSpeed": 1.5,
     "PatrolRange": 2,
-    "DetectRange": 5,
-    "AttackRange": 5,
+    "DetectRange": 6,
+    "AttackRange": 6,
     "AttackCoolTime": 1.5
   },
   {
