@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3585295879112327135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2864395942494856424}
+  m_Layer: 7
+  m_Name: ProjectileSpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2864395942494856424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3585295879112327135}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.416, y: 0.284, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7716860356506147071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6649763501422610752
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,7 +64,8 @@ Transform:
   m_LocalPosition: {x: 5.50439, y: -0.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2864395942494856424}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5990905560723621616
@@ -107,20 +139,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f79dd850c58af4db8ad6e6ad97e372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MG_Monster
+  _monsterDataId: 
   _maxHp: 30
   _currentHp: 0
+  _attackDamage: 10
   Animator_Monster: {fileID: 924107212888559116}
   _moveSpeed: 2
-  _attackDamage: 10
   _detectRange: 5
   _attackRange: 1
   _attackCoolTime: 1.5
+  _attackType: 1
+  _projectilePrefabPath: 
+  _projectileSpeed: 6
   SpriteRenderer_Monster: {fileID: 5990905560723621616}
   _hitFlashTime: 0.5
   _hitKnockBackPowerX: 100
   _hitKnockBackStopTime: 0.15
   _patrolRange: 4
   _patrolSpeed: 1.5
+  Transform_ProjectileSpawnPosition: {fileID: 2864395942494856424}
 --- !u!70 &2921584214612762938
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
