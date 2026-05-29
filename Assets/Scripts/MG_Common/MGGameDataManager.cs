@@ -12,7 +12,7 @@ public class MGGameDataManager : MonoBehaviour
     [Serializable]
     private class SerializationWrapper<T>
     {
-        public List<T> items;
+        public List<T> items = new List<T>();
     }
 
     private void Awake()
