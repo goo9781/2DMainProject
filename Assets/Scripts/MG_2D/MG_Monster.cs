@@ -37,6 +37,9 @@ public class MG_Monster : MonoBehaviour
     [SerializeField] private float _patrolRange = 2f;
     [SerializeField] private float _patrolSpeed = 1.5f;
 
+    [Header("원거리 공격 설정")]
+    [SerializeField] private Transform Transform_ProjectileSpawnPosition;
+
     private Rigidbody2D _rigidBody;
     private Transform _player;
     private MGMonsterData _monsterData;
@@ -469,10 +472,47 @@ public class MG_Monster : MonoBehaviour
     {
         if (_player == null)
         {
+            Debug.LogWarning("원거리 공격 대상 플레이어를 찾을 수 없습니다.");
             return;
         }
 
-        Debug.Log($"원거리 몬스터 공격 실행 / ProjectilePath : {_projectilePrefabPath} / Speed : {_projectileSpeed}");
+        if (string.IsNullOrEmpty(_projectilePrefabPath))
+        {
+            Debug.LogWarning("투사체 프리팹 경로가 비어있습니다.");
+            return;
+        }
+
+        GameObject projectilePrefab = Resources.Load<GameObject>(_projectilePrefabPath);
+
+        if (projectilePrefab == null)
+        {
+            Debug.LogWarning($"투사체 프리팹을 찾을 수 없습니다. Path : {_projectilePrefabPath}");
+            return;
+        }
+
+        Vector3 spawnPosition = transform.position;
+
+        if (Transform_ProjectileSpawnPosition != null)
+        {
+            spawnPosition = Transform_ProjectileSpawnPosition.position;
+        }
+
+        GameObject projectileObj = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
+
+        MG_MonsterProjectile projectile = projectileObj.GetComponent<MG_MonsterProjectile>();
+
+        if (projectile == null)
+        {
+            Debug.LogWarning("투사체 프리팹에 MG_MonsterProjectile 컴포넌트가 없습니다.");
+            Destroy(projectileObj);
+            return;
+        }
+
+        Vector2 moveDirection = _player.position - spawnPosition;
+
+        projectile.InitProjectile(moveDirection, _projectileSpeed, _attackDamage, this);
+
+        Debug.Log($"원거리 몬스터 투사체 생성 / ProjectilePath : {_projectilePrefabPath} / Speed : {_projectileSpeed}");
     }
 
     public void AnimationEvent_MonsterAttackHit()
