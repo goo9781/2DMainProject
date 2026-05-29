@@ -85,8 +85,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2013935873, guid: d723eb75fb2767a49841c0028bb88a79, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 812646670, guid: 214d2437c865d494a95b9c719b8a2578, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -107,20 +107,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5f79dd850c58af4db8ad6e6ad97e372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MG_Monster
+  _monsterDataId: mob_goblin_002
   _maxHp: 30
   _currentHp: 0
+  _attackDamage: 10
   Animator_Monster: {fileID: 4437528755406063048}
   _moveSpeed: 2
-  _attackDamage: 10
   _detectRange: 5
   _attackRange: 1
   _attackCoolTime: 1.5
+  _attackType: 1
+  _projectilePrefabPath: 
+  _projectileSpeed: 6
   SpriteRenderer_Monster: {fileID: 6383824984423842922}
   _hitFlashTime: 0.5
   _hitKnockBackPowerX: 100
   _hitKnockBackStopTime: 0.15
   _patrolRange: 4
   _patrolSpeed: 1.5
+  Transform_ProjectileSpawnPosition: {fileID: 0}
 --- !u!70 &3154535571152589797
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -195,7 +200,7 @@ Animator:
   m_GameObject: {fileID: 8805761445887332303}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 874c81a341fdccb4e83766a7b82819fb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9203a252cf8bf344dbaa689167a67c55, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

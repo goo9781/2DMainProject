@@ -71,7 +71,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: fb475d22a79d8ae419325fe5fd15c5df, type: 2}
+  m_Motion: {fileID: 7400000, guid: d1ce60e74ff834b4896a7eb8126d8f42, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -98,7 +98,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 439840d5ff1b55741b2d29091da0b5fd, type: 2}
+  m_Motion: {fileID: 7400000, guid: a0c5faa64ec85344b96d7765c55bf700, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -135,7 +135,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 2DMonsterAnimController
+  m_Name: 2DMonster_Melee_AnimController
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: IsMove
@@ -264,7 +264,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: bb770ddcf9c1f6b4c8f9b02f045706cb, type: 2}
+  m_Motion: {fileID: 7400000, guid: 31a0759ece71c784ea59a5ba2838c12e, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
