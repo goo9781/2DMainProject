@@ -7388,6 +7388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1420293808}
   - component: {fileID: 1420293809}
+  - component: {fileID: 1420293810}
   m_Layer: 0
   m_Name: MGGameManager
   m_TagString: Untagged
@@ -7422,6 +7423,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a30742affc4a5409b917dfae8d90a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MGGameManager
+--- !u!114 &1420293810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420293807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 498cd928b4c5ea849957afde2f18fb9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MG_TutorialGuide
+  _firstDelayTime: 0.5
+  _messageShowTime: 2
 --- !u!1 &1483514304
 GameObject:
   m_ObjectHideFlags: 0
