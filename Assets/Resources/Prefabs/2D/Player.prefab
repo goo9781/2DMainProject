@@ -425,7 +425,11 @@ MonoBehaviour:
   Animator_Entity: {fileID: 3285258916171480943}
   _guardKey: 106
   _isMoveLockOnGuard: 1
-  _guardReflectDamage: 999
+  _guardReflectDamage: 2
+  _justParryTime: 0.2
+  _justParryReflectDamage: 999
   Prefab_GuardSuccessEffect: {fileID: 0}
   Transform_GuardEffectPosition: {fileID: 5095435359913187886}
   _guardEffectDestroyTime: 1
+  AudioSource_GuardSuccess: {fileID: 0}
+  AudioClip_GuardSuccess: {fileID: 0}

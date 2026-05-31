@@ -8,7 +8,11 @@ public class MG_2DPlayerAttack : MonoBehaviour
     [Header("방어 설정")]
     [SerializeField] private KeyCode _guardKey = KeyCode.J;
     [SerializeField] private bool _isMoveLockOnGuard = true;
-    [SerializeField] private int _guardReflectDamage = 999;
+    [SerializeField] private int _guardReflectDamage = 5;
+
+    [Header("저스트 패링 설정")]
+    [SerializeField] private float _justParryTime = 0.15f;
+    [SerializeField] private int _justParryReflectDamage = 999;
 
     [Header("방어 성공 이펙트")]
     [SerializeField] private GameObject Prefab_GuardSuccessEffect;
@@ -20,6 +24,8 @@ public class MG_2DPlayerAttack : MonoBehaviour
     [SerializeField] private AudioClip AudioClip_GuardSuccess;
 
     private bool _isGuarding;
+
+    private float _guardStartTime;
 
     public bool IsGuarding
     {
@@ -68,6 +74,7 @@ public class MG_2DPlayerAttack : MonoBehaviour
         }
 
         _isGuarding = true;
+        _guardStartTime = Time.time;
 
         SetGuardAnimation(true);
     }
@@ -82,6 +89,18 @@ public class MG_2DPlayerAttack : MonoBehaviour
         _isGuarding = false;
 
         SetGuardAnimation(false);
+    }
+
+    private bool CheckJustParry()
+    {
+        if (_isGuarding == false)
+        {
+            return false;
+        }
+
+        float guardElapsedTime = Time.time - _guardStartTime;
+
+        return guardElapsedTime <= _justParryTime;
     }
 
     private void SetGuardAnimation(bool isGuard)
@@ -143,10 +162,23 @@ public class MG_2DPlayerAttack : MonoBehaviour
             return false;
         }
 
+        bool isJustParry = CheckJustParry();
+
         PlayGuardSuccessEffect();
         PlayGuardSuccessSound();
 
-        attackerMonster.TakeDamage(_guardReflectDamage, transform.position);
+        int reflectDamage = isJustParry ? _justParryReflectDamage : _guardReflectDamage;
+
+        attackerMonster.TakeDamage(reflectDamage, transform.position);
+
+        if (isJustParry)
+        {
+            Debug.Log("저스트 패링 성공!");
+        }
+        else
+        {
+            Debug.Log("일반 가드 반격 성공");
+        }
 
         return true;
     }
